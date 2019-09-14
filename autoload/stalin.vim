@@ -1,6 +1,6 @@
 " Vim status line plugin
 " Maintainer:   matveyt
-" Last Change:  2019 Sep 10
+" Last Change:  2019 Sep 12
 " License:      VIM License
 " URL:          https://github.com/matveyt/vim-stalin
 
@@ -119,7 +119,7 @@ let s:indic = {
         \ 'DiffAdd'],
     \ 'replace': ['%{mode()==#"R"?stalin#localize(1):""}',
         \ 'DiffDelete'],
-    \ 'terminal': ['%{repeat("TERMNL",mode()==#"t")}', 'StatusLineTerm'],
+    \ 'terminal': ['%{repeat("TERMNL",mode()==#"t")}', '*'],
     \ 'branch': ['%{stalin#branch()}', 'CursorLine'],
     \ 'buffer': ['%n:%<%t%( %m%)', '*'],
     \ 'flags': ['paste|spell|ft|ff|fe', 'CursorLine'],
