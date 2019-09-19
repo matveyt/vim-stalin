@@ -1,6 +1,6 @@
 " Vim status line plugin
 " Maintainer:   matveyt
-" Last Change:  2019 Sep 12
+" Last Change:  2019 Sep 17
 " License:      VIM License
 " URL:          https://github.com/matveyt/vim-stalin
 
@@ -73,7 +73,7 @@ function! s:translate(item, indic, sep1, sep2)
         return s:trhelper(a:item, 2)
     endif
 
-    let l:subitems = split(a:item[0], a:sep1, 1)
+    let l:subitems = split(a:item[0], a:sep1)
     if len(l:subitems) > 1
         let l:status = s:none
         for l:subitem in l:subitems
