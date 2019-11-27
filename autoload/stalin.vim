@@ -1,8 +1,11 @@
 " Vim status line plugin
 " Maintainer:   matveyt
-" Last Change:  2019 Sep 17
+" Last Change:  2019 Nov 27
 " License:      VIM License
 " URL:          https://github.com/matveyt/vim-stalin
+
+let s:save_cpo = &cpo
+set cpo&vim
 
 let s:none = ''
 
@@ -44,10 +47,10 @@ function! stalin#branch()
     return l:result
 endfunction
 
-function! s:trhelper(item, which)
+function s:trhelper(item, which)
     if empty(a:item[1])
         let l:result = s:none
-    elseif a:item[1] =~# '\v^\d?\*$'
+    elseif a:item[1] =~ '^\d\?\*$'
         let l:result = '%' . a:item[1]
     else
         let l:result = '%#' . a:item[1] . '#'
@@ -60,7 +63,7 @@ function! s:trhelper(item, which)
     return l:result
 endfunction
 
-function! s:advance(item, color, indic)
+function s:advance(item, color, indic)
     let l:result = get(a:indic, a:item, [a:item])
     if len(l:result) < 2
         call add(l:result, a:color)
@@ -68,7 +71,7 @@ function! s:advance(item, color, indic)
     return l:result
 endfunction
 
-function! s:translate(item, indic, sep1, sep2)
+function s:translate(item, indic, sep1, sep2)
     if a:item[0] =~# '[^a-z' . a:sep1 . a:sep2 . ']'
         return s:trhelper(a:item, 2)
     endif
@@ -135,3 +138,6 @@ function! stalin#build(fmt, ...)
     let l:indic = extend(copy(s:indic), get(a:, 1, {}))
     return s:translate([a:fmt, s:none], l:indic, ",", "\<bar>")
 endfunction
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
