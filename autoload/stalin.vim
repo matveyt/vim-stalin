@@ -1,6 +1,6 @@
 " Vim status line plugin
 " Maintainer:   matveyt
-" Last Change:  2019 Nov 27
+" Last Change:  2020 Jul 29
 " License:      VIM License
 " URL:          https://github.com/matveyt/vim-stalin
 
@@ -26,16 +26,16 @@ let s:messages = {
     \ 'uk': ['ВСТВКА', 'ЗАМIНА']
 \ }
 
-function! stalin#vmode()
+function! stalin#vmode() abort
     return get(s:vmode, mode(), s:none)
 endfunction
 
-function! stalin#localize(num)
+function! stalin#localize(num) abort
     return get(s:messages, &iminsert ? tolower(b:keymap_name[:1]) : 'en',
         \ s:messages['en'])[a:num]
 endfunction
 
-function! stalin#branch()
+function! stalin#branch() abort
     let l:result = exists('#fugitive') ? fugitive#Head(-1) : s:none
     if empty(l:result)
         " nothing to do
@@ -47,7 +47,7 @@ function! stalin#branch()
     return l:result
 endfunction
 
-function s:trhelper(item, which)
+function s:trhelper(item, which) abort
     if empty(a:item[1])
         let l:result = s:none
     elseif a:item[1] =~ '^\d\?\*$'
@@ -63,7 +63,7 @@ function s:trhelper(item, which)
     return l:result
 endfunction
 
-function s:advance(item, color, indic)
+function s:advance(item, color, indic) abort
     let l:result = get(a:indic, a:item, [a:item])
     if len(l:result) < 2
         call add(l:result, a:color)
@@ -71,7 +71,7 @@ function s:advance(item, color, indic)
     return l:result
 endfunction
 
-function s:translate(item, indic, sep1, sep2)
+function s:translate(item, indic, sep1, sep2) abort
     if a:item[0] =~# '[^a-z' . a:sep1 . a:sep2 . ']'
         return s:trhelper(a:item, 2)
     endif
@@ -113,7 +113,7 @@ function s:translate(item, indic, sep1, sep2)
     return s:trhelper(a:item, 2)
 endfunction
 
-let s:indic = {
+const s:indic = {
     \ '': ['%=', 'CursorLine'],
     \ 'mode': ['normal,visual,insert,replace,terminal'],
     \ 'normal': ['%{repeat("NORMAL",mode()==#"n")}', 'CursorLine'],
@@ -134,9 +134,9 @@ let s:indic = {
     \ 'ruler': ['%l:%c%V %p%%', '*']
 \ }
 
-function! stalin#build(fmt, ...)
+function! stalin#build(fmt, ...) abort
     let l:indic = extend(copy(s:indic), get(a:, 1, {}))
-    return s:translate([a:fmt, s:none], l:indic, ",", "\<bar>")
+    return s:translate([a:fmt, s:none], l:indic, ",", "\<Bar>")
 endfunction
 
 let &cpo = s:save_cpo
