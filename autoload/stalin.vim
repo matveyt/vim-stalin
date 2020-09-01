@@ -1,6 +1,6 @@
 " Vim status line plugin
 " Maintainer:   matveyt
-" Last Change:  2020 Jul 29
+" Last Change:  2020 Sep 01
 " License:      VIM License
 " URL:          https://github.com/matveyt/vim-stalin
 
@@ -32,7 +32,7 @@ endfunction
 
 function! stalin#localize(num) abort
     return get(s:messages, &iminsert ? tolower(b:keymap_name[:1]) : 'en',
-        \ s:messages['en'])[a:num]
+        \ s:messages.en)[a:num]
 endfunction
 
 function! stalin#branch() abort
@@ -50,25 +50,22 @@ endfunction
 function s:trhelper(item, which) abort
     if empty(a:item[1])
         let l:result = s:none
-    elseif a:item[1] =~ '^\d\?\*$'
-        let l:result = '%' . a:item[1]
+    elseif a:item[1] =~# '^\d\?\*$'
+        let l:result = '%'..a:item[1]
     else
-        let l:result = '%#' . a:item[1] . '#'
+        let l:result = '%#'..a:item[1]..'#'
     endif
     if a:which == 1
         let l:result .= a:item[0]
     elseif a:which == 2
-        let l:result .= '%( ' . a:item[0] . ' %)'
+        let l:result .= '%( '..a:item[0]..' %)'
     endif
     return l:result
 endfunction
 
 function s:advance(item, color, indic) abort
     let l:result = get(a:indic, a:item, [a:item])
-    if len(l:result) < 2
-        call add(l:result, a:color)
-    endif
-    return l:result
+    return len(l:result) < 2 ? add(copy(l:result), a:color) : l:result
 endfunction
 
 function s:translate(item, indic, sep1, sep2) abort
