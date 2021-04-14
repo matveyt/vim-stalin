@@ -26,8 +26,9 @@ stalin#build({fmt} [, {indic}])
 
     field	meaning ~
     <empty>	The separation point
-    mode	A shortcut for "normal,visual,insert,replace,terminal"
+    mode	A shortcut for "normal,cmdline,visual,insert,replace,terminal"
     normal	|Normal-mode| indicator
+    cmdline	|Command-line-mode| indicator
     visual	|Visual-mode| and |Select-mode| indicator
     insert	|Insert-mode| indicator; localized
     replace	|Replace-mode| indicator; localized

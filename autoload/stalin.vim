@@ -1,6 +1,6 @@
 " Vim status line plugin
 " Maintainer:   matveyt
-" Last Change:  2020 Sep 01
+" Last Change:  2021 Apr 12
 " License:      VIM License
 " URL:          https://github.com/matveyt/vim-stalin
 
@@ -112,8 +112,9 @@ endfunction
 
 const s:indic = {
     \ '': ['%=', 'CursorLine'],
-    \ 'mode': ['normal,visual,insert,replace,terminal'],
+    \ 'mode': ['normal,cmdline,visual,insert,replace,terminal'],
     \ 'normal': ['%{repeat("NORMAL",mode()==#"n")}', 'CursorLine'],
+    \ 'cmdline': ['%{repeat("CMDLIN",mode()==#"c")}', 'PMenu'],
     \ 'visual': ['%{stalin#vmode()}', 'Visual'],
     \ 'insert': ['%{mode()==#"i"?stalin#localize(0):""}',
         \ 'DiffAdd'],
