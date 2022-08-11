@@ -1,15 +1,13 @@
 ### Description
 
-This is a Vim plugin to simplify building a custom STAtusLINe.
+The Vim plugin to assist in building a custom STAtusLINe.
 
-### Download and Install
+#### Download and Install
 
-Use whatever plugin manager to pull the master branch.
+```
+$ git clone https://github.com/matveyt/vim-stalin ~/.vim/pack/manual/start/vim-stalin
+```
 
-### Usage
+#### Usage
 
-Read `:help stalin`.
-
-### License
-
-Distributed under the same terms as Vim itself. See `:help license`.
+See `:help stalin.txt`.

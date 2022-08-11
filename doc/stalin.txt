@@ -1,28 +1,29 @@
-*stalin.txt*    Build a custom status line
+*stalin.txt*	Build a custom status line
 
 ==============================================================================
-OVERVIEW                                                              *stalin*
+OVERVIEW							      *stalin*
 
 |Stalin| is made to simplify creating cool status lines. An example usage: >
 
     :let &statusline = stalin#build("mode,branch,buffer,,flags,ruler")
 
 ==============================================================================
-FUNCTIONS                                                   *stalin-functions*
+FUNCTIONS						    *stalin-functions*
 
-                                                              *stalin#build()*
+							      *stalin#build()*
 stalin#build({fmt} [, {indic}])
-    The result is a String ready to represent a 'statusline'.
+    The return value is |String| that represents a 'statusline'.
 
-    {fmt} is a format String which consists of an arbitrary number of fields
+    {fmt} is a format |String| that consists of an arbitrary number of fields
     ([a-z] only) separated by comma (',') and/or <bar>
 
-    The optional {indic} is a Dictionary used to define fields. Every value in
-    {indic} is a List of two values: a String defining a 'statusline' field,
-    and (optionally) a field's color. The fields may be defined recursively
-    (note that "non-terminal" fields must consist of [a-z,|] only).
+    The optional {indic} is a |Dictionary| used to define fields in {fmt}.
+    Every value in {indic} is a |List| of two values: a |String| defining a
+    'statusline' field, and (optionally) a field's color. The fields may be
+    defined recursively (note that "non-terminal" fields must consist of
+    [a-z,|] only).
 
-    There are several predefined fields ready for you:
+    Here are a few predefined fields to use:
 
     field	meaning ~
     <empty>	The separation point
@@ -41,16 +42,16 @@ stalin#build({fmt} [, {indic}])
     ft		'filetype' indicator
     ff		'fileformat' indicator
     fe		'fileencoding' and 'bomb' indicator
-    ruler	 The current cursor position
+    ruler	 Current cursor position
 
-    As for colors, you may use the following values:
+    As of colors, you may use the following values:
 
     color	meaning ~
-    *		The default status line color
-    N*		User{N} highlight group. See |hl-User1..9|
-    group	The predefined highlight group name
+    *		The default status line color. |hl-StatusLine|
+    N*		User{N} highlight group. |hl-User1..9|
+    group	Any defined highlight {group-name}
 
-    An example status line consisting of the buffer name and a clock: >
+    Example status line consisting of a buffer name and a clock: >
     let &statusline = stalin#build("buffer,,clock",
         \ {"clock": ['%{strftime("%H:%M")}', "Search"]})
 
