@@ -5,7 +5,8 @@ OVERVIEW							      *stalin*
 
 |Stalin| is made to simplify creating cool status lines. An example usage: >
 
-    :let &statusline = stalin#build("mode,branch,buffer,,flags,ruler")
+    :set showcmd showcmdloc=statusline
+    :let &statusline = stalin#build("mode,branch,buffer,,cmdloc,flags,ruler")
 
 ==============================================================================
 FUNCTIONS						    *stalin-functions*
@@ -17,26 +18,27 @@ stalin#build({fmt} [, {indic}])
     {fmt} is a format |String| that consists of an arbitrary number of fields
     ([a-z] only) separated by comma (',') and/or <bar>
 
-    The optional {indic} is a |Dictionary| used to define fields in {fmt}.
-    Every value in {indic} is a |List| of two values: a |String| defining a
-    'statusline' field, and (optionally) a field's color. The fields may be
-    defined recursively (note that "non-terminal" fields must consist of
-    [a-z,|] only).
+    The optional {indic} is a |Dictionary| defining fields in {fmt}. Every
+    value in {indic} is a |List| of two values: a |String| defining a
+    'statusline' field, and (optional) field highlighting group. The fields
+    may be defined recursively (note that "non-terminal" fields must consist
+    of [a-z,|] only).
 
-    Here are a few predefined fields to use:
+    Here is a list of predefined values to use:
 
     field	meaning ~
-    <empty>	The separation point
-    mode	A shortcut for "normal,cmdline,visual,insert,replace,terminal"
+    <empty>	Separation point
+    mode	Shortcut for "normal,cmdline,visual,insert,replace,terminal"
     normal	|Normal-mode| indicator
     cmdline	|Command-line-mode| indicator
     visual	|Visual-mode| and |Select-mode| indicator
-    insert	|Insert-mode| indicator; localized
-    replace	|Replace-mode| indicator; localized
+    insert	|Insert-mode| indicator, localized
+    replace	|Replace-mode| indicator, localized
     terminal	|Terminal-window| indicator
-    branch	Git branch indicator; requires |fugitive| to work
-    buffer	A buffer name and number indicator
-    flags	A shortcut for "paste\<bar>spell\<bar>ft\<bar>ff\<bar>fe"
+    branch	Git branch indicator, requires |fugitive| plugin to work
+    buffer	Buffer name and number indicator
+    cmdloc	Partially entered command |'showcmd'| |'showcmdloc'|
+    flags	Shortcut for "paste\<bar>spell\<bar>ft\<bar>ff\<bar>fe"
     paste	'paste' indicator
     spell	'spell' indicator
     ft		'filetype' indicator
@@ -44,12 +46,12 @@ stalin#build({fmt} [, {indic}])
     fe		'fileencoding' and 'bomb' indicator
     ruler	 Current cursor position
 
-    As of colors, you may use the following values:
+    For highlighting, you can use following values:
 
     color	meaning ~
     *		The default status line color. |hl-StatusLine|
     N*		User{N} highlight group. |hl-User1..9|
-    group	Any defined highlight {group-name}
+    group	Any globally defined highlight {group-name}
 
     Example status line consisting of a buffer name and a clock: >
     let &statusline = stalin#build("buffer,,clock",
